@@ -162,22 +162,17 @@ while place_order:
         keep_ordering = input("Would you like to keep ordering? (Y)es or (N)o: ")
 
         # 5. Check the customer's input
-        if keep_ordering.lower() == "y":
-                # Keep ordering
+        match keep_ordering.lower():
+            case "y":
                 place_order = True
-                # Exit the keep ordering question loop
                 break
-        elif keep_ordering.lower() == "n":
-                # Complete the order
+            case "n":
                 place_order = False
-                # Since the customer decided to stop ordering, thank them for
-                # their order
                 print("Thank you for your order!")
-                # Exit the keep ordering question loop
                 break
-                # Tell the customer to try again
-        else:
-            print("Sorry, I didn't quite get that.")
+            case _:
+                print("Sorry, I didn't quite get that.")
+                continue
 
 # Print out the customer's order
 print("This is what we are preparing for you.\n")
@@ -189,6 +184,8 @@ print("--------------------------|--------|----------")
 for item in order:
     # 7. Store the dictionary items as variables
     item_name = item["Item name"]
+    item_price = item["Price"]
+    item_quantity = item["Quantity"]
 
     # 8. Calculate the number of spaces for formatted printing
     num_item_spaces = 25 - len(item_name)
@@ -198,10 +195,10 @@ for item in order:
     item_spaces = " " * num_item_spaces
     total_printed_spaces = " " * total_spaces
     # 10. Print the item name, price, and quantity
-    if item['Price'] < 10: # Add a space between the $ and tens place for single digit prices
-        print(f"{item_name}{item_spaces} | $ {item['Price']} | {item['Quantity']}")
+    if item['Price'] < 10: # Add a space between the $ and tens place for single digit priced items
+        print(f"{item_name}{item_spaces} | $ {item_price} | {item_quantity}")
     else:
-        print(f"{item_name}{item_spaces} | ${item['Price']} | {item['Quantity']}")
+        print(f"{item_name}{item_spaces} | ${item_price} | {item_quantity}")
 
 # 11. Calculate the cost of the order using list comprehension
 # Multiply the price by quantity for each item in the order list, then sum()
