@@ -55,7 +55,7 @@ menu = {
 order = []
 
 # Launch the store and present a greeting to the customer
-print("Welcome to the variety food truck.")
+print("Welcome to Chef Geoff's Food Truck!")
 
 # Customers may want to order multiple items, so let's create a continuous
 # loop
@@ -118,7 +118,7 @@ while place_order:
                     }
                     i += 1
             # 2. Ask customer to input menu item number
-            menu_item_number = input("Type menu item number: ")
+            menu_item_number = input("Please type the menu item number: ")
 
             # 3. Check if the customer typed a number
             if menu_item_number.isdigit():
@@ -159,15 +159,14 @@ while place_order:
 
     while True:
         # Ask the customer if they would like to order anything else
-        keep_ordering = input("Would you like to keep ordering? (Y)es or (N)o ")
+        keep_ordering = input("Would you like to keep ordering? (Y)es or (N)o: ")
 
         # 5. Check the customer's input
         if keep_ordering.lower() == "y":
                 # Keep ordering
                 place_order = True
-                print("From which menu would you like to order? ")
-                break
                 # Exit the keep ordering question loop
+                break
         elif keep_ordering.lower() == "n":
                 # Complete the order
                 place_order = False
@@ -178,14 +177,11 @@ while place_order:
                 break
                 # Tell the customer to try again
         else:
-            print("Sorry, I didn't quite get that. Would you like to keep ordering? (Y)es or (N)o ")
+            print("Sorry, I didn't quite get that.")
 
 # Print out the customer's order
 print("This is what we are preparing for you.\n")
-
-# Uncomment the following line to check the structure of the order
 #print(order)
-
 print("Item name                 | Price  | Quantity")
 print("--------------------------|--------|----------")
 
@@ -196,12 +192,13 @@ for item in order:
 
     # 8. Calculate the number of spaces for formatted printing
     num_item_spaces = 25 - len(item_name)
+    total_spaces = 29 - len("Your total is: ")
 
     # 9. Create space strings
     item_spaces = " " * num_item_spaces
-
+    total_printed_spaces = " " * total_spaces
     # 10. Print the item name, price, and quantity
-    if round(item['Price']) < 10:
+    if item['Price'] < 10: # Add a space between the $ and tens place for single digit prices
         print(f"{item_name}{item_spaces} | $ {item['Price']} | {item['Quantity']}")
     else:
         print(f"{item_name}{item_spaces} | ${item['Price']} | {item['Quantity']}")
@@ -210,5 +207,6 @@ for item in order:
 # Multiply the price by quantity for each item in the order list, then sum()
 # and print the prices.
 total_cost = sum([item["Price"] * item["Quantity"] for item in order])
-print(f"\nYour total is ${total_cost}.")
-print("Will that be cash or credit?")
+print("="*46)
+print(f"Your total is:{total_printed_spaces}${total_cost:,.2f}\n")
+print("Will you be paying with cash or credit?\n")
